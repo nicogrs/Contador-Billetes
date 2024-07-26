@@ -1,34 +1,60 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import {useState} from 'react'
+import Moneda from './components/Moneda.jsx'
+import Billete from './models/billete';
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  let total = 0;
+
+  const [totales, setTotal] = useState(0);
+
+  const billeteUno = new Billete(1, "./public/uruguay/moneda1.jpg");
+  const billeteDos = new Billete(2, "./public/uruguay/moneda2.jpg");
+  const billeteCinco = new Billete(5, "./public/uruguay/moneda5.jpg");
+  const billeteDiez = new Billete(10, "./public/uruguay/moneda10.jpg");
+  const billeteVeinte = new Billete(20, "./public/uruguay/billete20.jpg");
+  const billeteCinc = new Billete(50, "./public/uruguay/billete50.jpg");
+  const billeteCien = new Billete(100, "./public/uruguay/billete100.jpg");
+  const billeteDoscientos = new Billete(200, "./public/uruguay/billete200.jpg");
+  const billeteQuinientos = new Billete(500, "./public/uruguay/billete500.jpg");
+  const billeteMil = new Billete(1000, "./public/uruguay/billete1000.jpg");
+  const billeteDosMil = new Billete(2000, "./public/uruguay/billete2000.jpg");
+
+  const billetesArr = [billeteUno, billeteDos, billeteCinco, billeteDiez, billeteVeinte, billeteCinc, billeteCien, billeteDoscientos, billeteQuinientos, billeteMil, billeteDosMil]
+
+  const calcularTotal = () =>{
+    billetesArr.forEach(bill => {
+      total = total + bill.obtenerSubTotal();
+    });
+    return total;
+  }
 
   return (
-    <>
+    <section>
+      <table>
+        <thead>
+        <tr>
+          <th>Billete</th>
+          <th>Denominacion</th>
+          <th>Cantidad</th>
+          <th>Subtotal</th>
+        </tr>
+        </thead>
+        <tbody>
+          {billetesArr.map((bill, index) => (
+          <Moneda key={index} billete={bill} onSubtotalChange={(() => setTotal(calcularTotal))} />
+         ))}
+       </tbody>
+      </table>
+
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <h3>Total: $ {totales}</h3>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+
+      <div>
+        <button>Reiniciar valores</button>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+      </section>
   )
 }
 
