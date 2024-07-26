@@ -7,8 +7,8 @@ function Moneda({ billete, onSubtotalChange }) {
     const [valor, setValor] = useState(0);
 
     const valorEventListener = (e) => {
-        if(e.target.value > 0)
-    setValor(e.target.value);
+        const inputValue = e.target.value
+    setValor(inputValue > -1 ? inputValue : 0);
     }
 
     useEffect ( () =>{
@@ -24,7 +24,7 @@ function Moneda({ billete, onSubtotalChange }) {
                     <p>{billete.obtenerDenominacion()}</p>
                 </td>
                 <td>
-                    <input onChange={valorEventListener} value={valor} min="0" type="number" />
+                    <input onChange={valorEventListener} value={valor}  type="number" />
                 </td>
                 <td>
                     <p>{billete.calcularSubTotal(valor)}</p>

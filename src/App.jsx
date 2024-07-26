@@ -30,17 +30,18 @@ function App() {
   }
 
   return (
+    <div className='container'>
     <section>
-      <table>
-        <thead>
+      <table className='table'>
+        <thead className='table-dark'>
         <tr>
-          <th>Billete</th>
-          <th>Denominacion</th>
-          <th>Cantidad</th>
-          <th>Subtotal</th>
+          <th scope='col'>Billete</th>
+          <th scope='col'>Denominacion</th>
+          <th scope='col'>Cantidad</th>
+          <th scope='col'>Subtotal</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody className='table-group-divider'>
           {billetesArr.map((bill, index) => (
           <Moneda key={index} billete={bill} onSubtotalChange={(() => setTotal(calcularTotal))} />
          ))}
@@ -50,11 +51,8 @@ function App() {
       <div>
         <h3>Total: $ {totales}</h3>
       </div>
-
-      <div>
-        <button>Reiniciar valores</button>
-      </div>
       </section>
+      </div>
   )
 }
 
