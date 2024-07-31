@@ -1,0 +1,14 @@
+footer {
+    margin: 0;
+    bottom: 0;
+width: 100%;
+display: block;
+padding: 2rem;
+margin-top: 2rem;
+color: #ffffff;
+background-color: black;
+}
+
+footer a{
+    text-decoration: none;
+}

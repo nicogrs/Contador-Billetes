@@ -2,18 +2,22 @@ import {useState, useEffect} from 'react'
 import './Moneda.css'
 
 
-function Moneda({ billete, onSubtotalChange }) {
+function Moneda({ billete, onSubtotalChange, reset }) {
     
     const [valor, setValor] = useState(0);
 
     const valorEventListener = (e) => {
-        const inputValue = e.target.value
+    const inputValue = e.target.value
     setValor(inputValue > -1 ? inputValue : 0);
+    onSubtotalChange();
     }
 
     useEffect ( () =>{
+        if(reset){
+            setValor(0);
+        }
         onSubtotalChange();
-    }, [valor])
+    }, [billete,onSubtotalChange,valor,reset])
 
     return(
             <tr>

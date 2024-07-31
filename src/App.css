@@ -1,21 +1,38 @@
 #root {
-  max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
 }
 
-.card {
-  padding: 2em;
+.table-responsive {
+  width: 70%;
+  margin: 0 auto;
 }
-
-.read-the-docs {
-  color: #888;
-}
-
 
 .imagenBill{
-  height: 3.5rem;
+  height: 3rem;
   width: 5.0rem;
 }
 
+.reiniciar-valores{
+  margin-top: 2rem;
+}
+
+
+@media print {
+  /* Estilos específicos para impresión */
+  button{
+    display: none;
+  }
+
+  .table-responsive {
+    width: 100%;
+  }
+
+  h1 {
+    display: none;
+  }
+
+  footer {
+    display: none;
+  }
+}
