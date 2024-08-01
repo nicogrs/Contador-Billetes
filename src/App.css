@@ -30,4 +30,12 @@
   footer {
     display: none;
   }
+
+  header {
+    display: none;
+  }
+  
+  .sel-container {
+    display: none;
+  }
 }

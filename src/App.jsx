@@ -8,8 +8,8 @@ import './App.css'
 function App() {
   const [totales, setTotal] = useState(0);
   const [reset, setReset] = useState(false);
-  const [billetesArrr, setBilletesArr] = useState([]);
-  const [pais, setPais] = useState('')
+  const [billetesArr, setBilletesArr] = useState([]);
+  const [pais, setPais] = useState('uy')
 
 
   const Uru_billeteUno = new Billete(1, "./uruguay/moneda1.jpg");
@@ -24,8 +24,7 @@ const Uru_billeteQuinientos = new Billete(500, "./uruguay/billete500.jpg");
 const Uru_billeteMil = new Billete(1000, "./uruguay/billete1000.jpg");
 const Uru_billeteDosMil = new Billete(2000, "./uruguay/billete2000.jpg");
 
-const billetesArr = [Uru_billeteUno, Uru_billeteDos, Uru_billeteCinco, Uru_billeteDiez, Uru_billeteVeinte, Uru_billeteCinc, Uru_billeteCien, Uru_billeteDoscientos, Uru_billeteQuinientos, Uru_billeteMil, Uru_billeteDosMil]
-
+const billetesArrr = [Uru_billeteUno, Uru_billeteDos, Uru_billeteCinco, Uru_billeteDiez, Uru_billeteVeinte, Uru_billeteCinc, Uru_billeteCien, Uru_billeteDoscientos, Uru_billeteQuinientos, Uru_billeteMil, Uru_billeteDosMil]
 
 
   const calcularTotal = () => {
@@ -38,7 +37,7 @@ const billetesArr = [Uru_billeteUno, Uru_billeteDos, Uru_billeteCinco, Uru_bille
 
   const resetearTotal = () =>{
     billetesArr.forEach(bill => {
-      bill.actualizarSubtotal = 0;
+      bill.actualizarSubtotal(0);
     });
     setTotal(0)
     setReset(true)
@@ -50,24 +49,28 @@ const billetesArr = [Uru_billeteUno, Uru_billeteDos, Uru_billeteCinco, Uru_bille
 
   useEffect(() => {
     calcularTotal();
+  },[totales, pais])
+
+  useEffect(() => {
     obtenerArr();
-  },[totales,pais])
+  },[pais])
 
   useEffect(() => {
     if(reset){
       setReset(false)
     }
-  },[reset])
+  },[billetesArr, reset])
 
   const obtenerArr = () =>{
-    setBilletesArr(obtenerMoneda(pais))
+    const arregloBilletes = obtenerMoneda(pais);
+    setBilletesArr(arregloBilletes);
   }
 
   return (
-    <div className='container'> 
+    <div className='container-md'> 
     <Select onSelectChange={(e) => setPais(e)} />
     <div className='table-responsive d-flex flex-column'>
-    <div className='container-fluid flex-grow-1 pb-3 d-flex justify-content-end' >
+    <div className='container-fluid p-3 d-flex justify-content-end' >
          <button onClick={imprimir} id='imprimir'>Imprimir página</button>
     </div> 
       <table className='table'>
@@ -81,7 +84,7 @@ const billetesArr = [Uru_billeteUno, Uru_billeteDos, Uru_billeteCinco, Uru_bille
         </thead>
         <tbody className='table-group-divider'>
           {billetesArr.map((bill, index) => (
-          <Moneda key={index} billete={bill} cambArr={obtenerArr} reset={reset} onSubtotalChange={calcularTotal} />
+          <Moneda key={index} billete={bill} reset={reset} onSubtotalChange={calcularTotal} />
          ))}
        </tbody>
       </table>

@@ -1,7 +1,7 @@
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import './Select.css'
 
-function Select ({onSelectChange}){
+function Select({ onSelectChange }) {
     const [opcion, setOpcion] = useState('');
 
     const handleOption = (e) => {
@@ -10,18 +10,20 @@ function Select ({onSelectChange}){
 
     useEffect(() => {
         onSelectChange(opcion);
-    },[opcion])
+    }, [opcion])
 
-    return(
-        <div>
-            <div className='flex'>
-                <p>Seleccionar una moneda:</p>
+    return (
+        <div className='sel-container'>
+            <div className='d-flex justify-content-center'>
+                <div className='d-flex flex-column align-items-center'>
+                    <p>Seleccionar una moneda:</p>
+                    <select className='form-control' onChange={handleOption} name="paises" id="select-paises">
+                        <option value="uy">URUGUAY</option>
+                        <option value="ar">ARGENTINA</option>
+                        <option value="cl">CHILE</option>
+                    </select>
+                </div>
             </div>
-            <select onChange={handleOption} name="paises" id="select-paises">
-                <option value="uy">UY</option>
-                <option value="ar">AR</option>
-                <option value="cl">CL</option>
-            </select>
         </div>
     )
 }

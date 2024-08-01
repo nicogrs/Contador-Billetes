@@ -29,7 +29,7 @@ function Moneda({ billete, onSubtotalChange, reset}) {
                     <p>{billete.obtenerDenominacion()}</p>
                 </td>
                 <td>
-                    <input onChange={valorEventListener} value={valor}  type="number" />
+                    <input className='form-control form-control-md' onChange={valorEventListener} value={valor}  type="number" />
                 </td>
                 <td>
                     <p>{billete.calcularSubTotal(valor)}</p>
