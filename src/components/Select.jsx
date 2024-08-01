@@ -16,7 +16,7 @@ function Select({ onSelectChange }) {
         <div className='sel-container'>
             <div className='d-flex justify-content-center'>
                 <div className='d-flex flex-column align-items-center'>
-                    <p>Seleccionar una moneda:</p>
+                    <h4 className='p-2'>Seleccionar una moneda:</h4>
                     <select className='form-control' onChange={handleOption} name="paises" id="select-paises">
                         <option value="uy">URUGUAY</option>
                         <option value="ar">ARGENTINA</option>
