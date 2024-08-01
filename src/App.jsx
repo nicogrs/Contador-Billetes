@@ -1,33 +1,39 @@
 import {useState, useEffect} from 'react'
 import Moneda from './components/Moneda.jsx'
-import Billete from './models/billete';
-import Footer from './components/Footer.jsx';
+import {obtenerMoneda} from './models/monedas.js'
+import Billete from './models/billete.js';
+import Select from './components/Select.jsx';
 import './App.css'
 
 function App() {
   const [totales, setTotal] = useState(0);
   const [reset, setReset] = useState(false);
+  const [billetesArrr, setBilletesArr] = useState([]);
+  const [pais, setPais] = useState('')
 
-  const billeteUno = new Billete(1, "./uruguay/moneda1.jpg");
-  const billeteDos = new Billete(2, "./uruguay/moneda2.jpg");
-  const billeteCinco = new Billete(5, "./uruguay/moneda5.jpg");
-  const billeteDiez = new Billete(10, "./uruguay/moneda10.jpg");
-  const billeteVeinte = new Billete(20, "./uruguay/billete20.jpg");
-  const billeteCinc = new Billete(50, "./uruguay/billete50.jpg");
-  const billeteCien = new Billete(100, "./uruguay/billete100.jpg");
-  const billeteDoscientos = new Billete(200, "./uruguay/billete200.jpg");
-  const billeteQuinientos = new Billete(500, "./uruguay/billete500.jpg");
-  const billeteMil = new Billete(1000, "./uruguay/billete1000.jpg");
-  const billeteDosMil = new Billete(2000, "./uruguay/billete2000.jpg");
 
-  const billetesArr = [billeteUno, billeteDos, billeteCinco, billeteDiez, billeteVeinte, billeteCinc, billeteCien, billeteDoscientos, billeteQuinientos, billeteMil, billeteDosMil]
+  const Uru_billeteUno = new Billete(1, "./uruguay/moneda1.jpg");
+const Uru_billeteDos = new Billete(2, "./uruguay/moneda2.jpg");
+const Uru_billeteCinco = new Billete(5, "./uruguay/moneda5.jpg");
+const Uru_billeteDiez = new Billete(10, "./uruguay/moneda10.jpg");
+const Uru_billeteVeinte = new Billete(20, "./uruguay/billete20.jpg");
+const Uru_billeteCinc = new Billete(50, "./uruguay/billete50.jpg");
+const Uru_billeteCien = new Billete(100, "./uruguay/billete100.jpg");
+const Uru_billeteDoscientos = new Billete(200, "./uruguay/billete200.jpg");
+const Uru_billeteQuinientos = new Billete(500, "./uruguay/billete500.jpg");
+const Uru_billeteMil = new Billete(1000, "./uruguay/billete1000.jpg");
+const Uru_billeteDosMil = new Billete(2000, "./uruguay/billete2000.jpg");
+
+const billetesArr = [Uru_billeteUno, Uru_billeteDos, Uru_billeteCinco, Uru_billeteDiez, Uru_billeteVeinte, Uru_billeteCinc, Uru_billeteCien, Uru_billeteDoscientos, Uru_billeteQuinientos, Uru_billeteMil, Uru_billeteDosMil]
+
+
 
   const calcularTotal = () => {
-    let total = 0; // Reiniciar total en cada llamada a calcularTotal
+    let total = 0; 
     billetesArr.forEach(bill => {
       total += bill.obtenerSubTotal();
     });
-    setTotal(total); // Actualizar el estado totales
+    setTotal(total);
   };
 
   const resetearTotal = () =>{
@@ -44,7 +50,8 @@ function App() {
 
   useEffect(() => {
     calcularTotal();
-  },[totales])
+    obtenerArr();
+  },[totales,pais])
 
   useEffect(() => {
     if(reset){
@@ -52,16 +59,21 @@ function App() {
     }
   },[reset])
 
+  const obtenerArr = () =>{
+    setBilletesArr(obtenerMoneda(pais))
+  }
+
   return (
     <div className='container'> 
+    <Select onSelectChange={(e) => setPais(e)} />
     <div className='table-responsive d-flex flex-column'>
-    <div className='container-fluid pb-3 d-flex justify-content-end' >
+    <div className='container-fluid flex-grow-1 pb-3 d-flex justify-content-end' >
          <button onClick={imprimir} id='imprimir'>Imprimir página</button>
     </div> 
       <table className='table'>
         <thead className='table-dark'>
         <tr>
-          <th scope='col'>Billete</th>
+          <th scope='col' className='d-none d-md-table-cell'>Billete</th>
           <th scope='col'>Denominacion</th>
           <th scope='col'>Cantidad</th>
           <th scope='col'>Subtotal</th>
@@ -69,7 +81,7 @@ function App() {
         </thead>
         <tbody className='table-group-divider'>
           {billetesArr.map((bill, index) => (
-          <Moneda key={index} billete={bill} reset={reset} onSubtotalChange={calcularTotal} />
+          <Moneda key={index} billete={bill} cambArr={obtenerArr} reset={reset} onSubtotalChange={calcularTotal} />
          ))}
        </tbody>
       </table>

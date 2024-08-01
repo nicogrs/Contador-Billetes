@@ -1,8 +1,9 @@
 import {useState, useEffect} from 'react'
+
 import './Moneda.css'
 
 
-function Moneda({ billete, onSubtotalChange, reset }) {
+function Moneda({ billete, onSubtotalChange, reset}) {
     
     const [valor, setValor] = useState(0);
 
@@ -21,7 +22,7 @@ function Moneda({ billete, onSubtotalChange, reset }) {
 
     return(
             <tr>
-                <td>
+                <td className='d-none d-md-table-cell'>
                     <img className='imagenBill' src={billete.obtenerImagen()} alt="Imagen de billete" />
                 </td>
                 <td>

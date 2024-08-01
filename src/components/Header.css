@@ -1,8 +1,13 @@
 header {
     background-color: black;
     width: 100%;
-    padding: 2rem;
+    padding: 1rem;
     top: 0;
     color: rgb(255, 255, 255);
     margin-bottom: 3rem;
+}
+
+.logo {
+    width: 7em;
+    height: 7em;
 }
